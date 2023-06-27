@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getMoviesList } from 'fetchFilmsUtils/fetchFilmData';
 import MoviesList from 'components/MoviesList';
-import {  useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
   const [data, setData] = useState('');
@@ -10,9 +10,6 @@ const Movies = () => {
   const [movieList, setMovieList] = useState([]);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  // const location = useLocation()
-
-  // const name = searchParams.get("query") ?? '';
 
   const handleInputAdd = e => {
     e.preventDefault();
@@ -26,9 +23,9 @@ const Movies = () => {
 
   const setControlInput = e => {
     const { value } = e.target;
-    if (value === '') {
-      setSearchParams({});
-    }
+    // if (value === '') {
+    //   setSearchParams({});
+    // }
 
     setData(value);
   };
@@ -43,6 +40,7 @@ const Movies = () => {
 
         const movieList = await getMoviesList(name);
         setMovieList(movieList);
+        setData('');
       } catch (error) {}
     };
     getFilmsList();
