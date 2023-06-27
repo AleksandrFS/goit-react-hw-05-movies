@@ -4,7 +4,7 @@ import { getMovieReviews } from 'fetchFilmsUtils/fetchFilmData';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
   const { movieId } = useParams();
 
   useEffect(() => {
