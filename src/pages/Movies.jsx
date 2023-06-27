@@ -5,7 +5,7 @@ import {  useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
   const [data, setData] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
   const [movieList, setMovieList] = useState([]);
 
   const [searchParams, setSearchParams] = useSearchParams();
