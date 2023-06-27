@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import MovieDescription from 'components/MovieDescrirtion';
 import { getMovie } from 'fetchFilmsUtils/fetchFilmData';
 
@@ -7,6 +7,8 @@ const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState('');
   const { movieId } = useParams();
+  const location = useLocation()
+  const backLinkLocation = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     const getMovieData = async () => {
@@ -24,6 +26,9 @@ const MovieDetails = () => {
 
   return (
     <>
+      <Link to={backLinkLocation.current}>
+        <button>Go back</button>
+      </Link>
       {error && <p>Some error occurred</p>}
       {movie && <MovieDescription movieData={movie} />}
       <>

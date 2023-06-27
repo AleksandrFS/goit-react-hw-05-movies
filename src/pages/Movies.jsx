@@ -1,33 +1,51 @@
 import { useEffect, useState } from 'react';
 import { getMoviesList } from 'fetchFilmsUtils/fetchFilmData';
 import MoviesList from 'components/MoviesList';
+import {  useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
-  const [query, setQuery] = useState('');
   const [data, setData] = useState('');
   const [error, setError] = useState('');
   const [movieList, setMovieList] = useState([]);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  // const location = useLocation()
+
+  // const name = searchParams.get("query") ?? '';
+
   const handleInputAdd = e => {
     e.preventDefault();
 
-    setQuery(data);
+    if (!data) {
+      return;
+    }
+    setSearchParams({ query: `${data}` });
+    // setData('');
   };
 
   const setControlInput = e => {
     const { value } = e.target;
+    if (value === '') {
+      setSearchParams({});
+    }
+
     setData(value);
   };
 
   useEffect(() => {
     const getFilmsList = async () => {
       try {
-        const movieList = await getMoviesList(query);
+        const name = searchParams.get('query');
+        if (!name) {
+          return;
+        }
+
+        const movieList = await getMoviesList(name);
         setMovieList(movieList);
       } catch (error) {}
     };
     getFilmsList();
-  }, [query]);
+  }, [searchParams]);
 
   return (
     <>
@@ -44,7 +62,7 @@ const Movies = () => {
         </button>
       </form>
 
-      {query && <MoviesList movies={movieList} />}
+      {searchParams && <MoviesList movies={movieList} />}
     </>
   );
 };
