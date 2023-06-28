@@ -2,32 +2,17 @@ import { Suspense } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { Spinner } from '../Loader';
 
-import css from './Layout.module.css'
-
-
+import css from './Layout.module.css';
 
 const Layout = () => {
   return (
     <div>
-      <ul className={css.navigation}>
+      <ul>
         <li>
-          <NavLink
-            className={css.link}
-            to="/"
-            style={{
-              color: '#000000',
-              ':active': {
-                color: '#5b07f7',
-              },
-            }}
-          >
-            Home
-          </NavLink>
+          <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <NavLink className={css.link} to="/movies">
-            Movies
-          </NavLink>
+          <NavLink to="/movies">Movies</NavLink>
         </li>
       </ul>
       <Suspense fallback={<Spinner />}>
