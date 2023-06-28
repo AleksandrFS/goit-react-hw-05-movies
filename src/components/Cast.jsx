@@ -1,3 +1,6 @@
+import { nanoid } from 'nanoid';
+
+import { BsPersonSquare } from 'react-icons/bs';
 import { useState, useEffect } from 'react';
 import { getMovieCredits } from '../fetchFilmsUtils/fetchFilmData';
 import { useParams } from 'react-router-dom';
@@ -28,15 +31,19 @@ const Cast = () => {
           {cast &&
             cast.map(({ name, character, id, profile_path }) => {
               return (
-                <li key={id}>
+                <li key={id ?? nanoid()}>
                   <div>
-                    <img
-                      src={`https://image.tmdb.org/t/p/w300${profile_path}`}
-                      alt="Movie poster"
-                    />
+                    {profile_path ? (
+                      <img
+                        src={`https://image.tmdb.org/t/p/w200${profile_path}`}
+                        alt={name ?? 'character photo'}
+                      />
+                    ) : (
+                      <BsPersonSquare style={{ height: 300, width: 200 }} />
+                    )}
                   </div>
-                  <p>{name}</p>
-                  <p>Character: {character}</p>
+                  <p>{name ?? ''}</p>
+                  <p>Character: {character ?? ''}</p>
                 </li>
               );
             })}

@@ -24,19 +24,16 @@ export const getMovieCredits = async movieId => {
   return resultData.data;
 };
 
-
 export const getMovieReviews = async movieId => {
   const resultData = await axios.get(
     `${URL_MOVIE}${movieId}/reviews?api_key=${API_KEY}`
   );
-  console.log(resultData.data.results);
   return resultData.data.results;
-}
+};
 
 export const getMoviesList = async query => {
   const resultData = await axios.get(
     `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${API_KEY}`
   );
   return resultData.data.results;
-}
-
+};

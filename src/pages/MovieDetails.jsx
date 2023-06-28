@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import MovieDescription from 'components/MovieDescrirtion';
+import { Spinner } from 'components/Loader';
 import { getMovie } from 'fetchFilmsUtils/fetchFilmData';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState('');
   const { movieId } = useParams();
-  const location = useLocation()
+  const location = useLocation();
   const backLinkLocation = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const MovieDetails = () => {
             <Link to="reviews">Reviews</Link>
           </li>
         </ul>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Spinner/>}>
           <Outlet />
         </Suspense>
       </>
