@@ -3,8 +3,10 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getMoviesList } from 'fetchFilmsUtils/fetchFilmData';
-import MoviesList from 'components/MoviesList';
-import { Spinner } from 'components/Loader';
+import MoviesList from 'components/MoviesList/MoviesList';
+import { Spinner } from 'components/Loader/Loader';
+
+import { Notification, Form, Button } from './Movies.styled';
 
 const Movies = () => {
   const [data, setData] = useState('');
@@ -63,7 +65,7 @@ const Movies = () => {
 
   return (
     <>
-      <form onSubmit={handleInputAdd}>
+      <Form onSubmit={handleInputAdd}>
         <input
           type="text"
           autoComplete="off"
@@ -71,15 +73,18 @@ const Movies = () => {
           value={data}
           onChange={setControlInput}
         />
-        <button type="submit">
+        <Button type="submit">
           <span>Search</span>
-        </button>
-      </form>
+        </Button>
+      </Form>
 
       {isLoading && <Spinner />}
-      {error && <p>Some error occured</p>}
+      <Notification>
+        {isEmpty && <p>There is no any movie according to your fetch</p>}
+        {error && <p>Some error occured</p>}
+      </Notification>
+
       {searchParams && <MoviesList movies={movieList} />}
-      {isEmpty && <p>There is no any movie according to your fetch</p>}
     </>
   );
 };

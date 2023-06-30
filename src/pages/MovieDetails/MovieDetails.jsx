@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import MovieDescription from 'components/MovieDescrirtion';
-import { Spinner } from 'components/Loader';
+import MovieDescription from 'components/MovieDescription/MovieDescrirtion';
+import { Spinner } from 'components/Loader/Loader';
 import { getMovie } from 'fetchFilmsUtils/fetchFilmData';
+
+import { Text } from './MovieDetails.styled';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
@@ -35,13 +37,13 @@ const MovieDetails = () => {
       <>
         <ul>
           <li>
-            <Link to="cast">Cast</Link>
+            <Text to="cast">Cast</Text>
           </li>
           <li>
-            <Link to="reviews">Reviews</Link>
+            <Text to="reviews">Reviews</Text>
           </li>
         </ul>
-        <Suspense fallback={<Spinner/>}>
+        <Suspense fallback={<Spinner />}>
           <Outlet />
         </Suspense>
       </>

@@ -2,8 +2,10 @@ import { nanoid } from 'nanoid';
 
 import { BsPersonSquare } from 'react-icons/bs';
 import { useState, useEffect } from 'react';
-import { getMovieCredits } from '../fetchFilmsUtils/fetchFilmData';
+import { getMovieCredits } from '../../fetchFilmsUtils/fetchFilmData';
 import { useParams } from 'react-router-dom';
+
+import { Container, Text } from './Cast.styled';
 
 const Cast = () => {
   const [credits, setCredits] = useState([]);
@@ -27,7 +29,7 @@ const Cast = () => {
   return (
     <>
       <div>
-        <ul>
+        <Container>
           {cast &&
             cast.map(({ name, character, id, profile_path }) => {
               return (
@@ -42,12 +44,13 @@ const Cast = () => {
                       <BsPersonSquare style={{ height: 300, width: 200 }} />
                     )}
                   </div>
-                  <p>{name ?? ''}</p>
-                  <p>Character: {character ?? ''}</p>
+
+                  <Text>{name ?? ''}</Text>
+                  <Text>Character: {character ?? ''}</Text>
                 </li>
               );
             })}
-        </ul>
+        </Container>
       </div>
       {error && <p>Some error occured</p>}
     </>

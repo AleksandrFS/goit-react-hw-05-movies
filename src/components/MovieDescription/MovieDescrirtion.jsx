@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types';
 import { BsPersonSquare } from 'react-icons/bs';
 
+import { Title, Poster, Text, TitleText } from './MovieDescription.styled';
+
 const MovieDescription = ({ movieData }) => {
   const { genres, title, overview, vote_average, poster_path } = movieData;
 
   return (
     <>
       <div>
-        <div>
+        <Title>{title ?? ''}</Title>
+        <Poster>
           {poster_path ? (
             <img
               src={`https://image.tmdb.org/t/p/w300${poster_path}`}
@@ -16,14 +19,18 @@ const MovieDescription = ({ movieData }) => {
           ) : (
             <BsPersonSquare style={{ height: 300, width: 200 }} />
           )}
-        </div>
+        </Poster>
         <div>
-          <h2>{title ?? ''}</h2>
-          <p>User score: {Math.round(vote_average * 10) ?? ''}%</p>
+          <TitleText>
+            User score: {Math.round(vote_average * 10) ?? ''}%
+          </TitleText>
           <div>
-            <p>Overviev</p>
-            <p>{overview ?? ''}</p>
-            <p>{genres.map(({ name }) => name).join(' ') ?? ''}</p>
+            <TitleText>Overviev</TitleText>
+            <div>
+              <Text>{overview ?? ''}</Text>
+              <Text>{genres.map(({ name }) => name).join(' ') ?? ''}</Text>
+              <TitleText>Additional information</TitleText>
+            </div>
           </div>
         </div>
       </div>

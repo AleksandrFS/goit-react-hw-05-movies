@@ -1,26 +1,27 @@
 import { Suspense } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
-import { Spinner } from '../Loader';
-
-import css from './Layout.module.css';
+import { Outlet } from 'react-router-dom';
+import { Spinner } from '../Loader/Loader';
+import { Container, Link, Nav } from './Layout.styled';
 
 const Layout = () => {
   return (
-    <div>
-      <ul>
+    <>
+      <Nav>
         <li>
-          <NavLink to="/">Home</NavLink>
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <NavLink to="/movies">Movies</NavLink>
+          <Link to="/movies">Movies</Link>
         </li>
-      </ul>
-      <Suspense fallback={<Spinner />}>
-        <main>
-          <Outlet />
-        </main>
-      </Suspense>
-    </div>
+      </Nav>
+      <Container>
+        <Suspense fallback={<Spinner />}>
+          <main>
+            <Outlet />
+          </main>
+        </Suspense>
+      </Container>
+    </>
   );
 };
 

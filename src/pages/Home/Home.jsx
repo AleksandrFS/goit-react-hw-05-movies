@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { getMoviesListTrending } from 'fetchFilmsUtils/fetchFilmData';
 
-import MoviesList from 'components/MoviesList';
+import MoviesList from 'components/MoviesList/MoviesList';
+import { Spinner } from 'components/Loader/Loader';
 
-import { Spinner } from 'components/Loader';
+import { Title } from './Home.styled';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -27,12 +28,10 @@ const Home = () => {
 
   return (
     <>
-      <div>
-        <div>Trending today</div>
-        {isLoading && <Spinner />}
-        {movies.length > 0 && <MoviesList movies={movies} />}
-        {error && <p>Some server error occurred</p>}
-      </div>
+      <Title>Trending today</Title>
+      {movies.length > 0 && <MoviesList movies={movies} />}
+      {isLoading && <Spinner />}
+      {error && <p>Some server error occurred</p>}
     </>
   );
 };

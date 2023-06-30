@@ -3,7 +3,9 @@ import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieReviews } from 'fetchFilmsUtils/fetchFilmData';
-import { Spinner } from './Loader';
+import { Spinner } from '../Loader/Loader';
+
+import { Notification, Text, Author } from './Reviews.styled';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -37,16 +39,19 @@ const Reviews = () => {
   return (
     <>
       {isLoading && <Spinner />}
-      {isEmpty && <p>There is no any reviews for this movie</p>}
-      {error && <p>Some error occured</p>}
+      <Notification>
+        {isEmpty && <p>There is no any reviews for this movie</p>}
+        {error && <p>Some error occured</p>}
+      </Notification>
+
       {reviews && (
         <div>
           <ul>
             {reviews.map(({ author, content, id }) => {
               return (
                 <li key={id ?? nanoid()}>
-                  <p>Author: {author ?? ''} </p>
-                  <p>{content ?? ''} </p>
+                  <Author>Author: {author ?? ''} </Author>
+                  <Text>{content ?? ''} </Text>
                 </li>
               );
             })}
